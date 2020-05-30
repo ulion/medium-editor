@@ -3056,6 +3056,7 @@ MediumEditor.extensions = {};
 
         handleBlur: function (event) {
             this.triggerCustomEvent('editableBlur', event, event.currentTarget);
+            this.updateFocus(event.target, event);
         },
 
         handleKeypress: function (event) {
