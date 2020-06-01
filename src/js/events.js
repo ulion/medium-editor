@@ -410,6 +410,11 @@
             this.updateFocus(element, { target: element, type: 'focus' });
         },
 
+        blurElement: function (element) {
+            element.blur();
+            this.updateFocus(element, { target: element, type: 'blur' });
+        },
+
         updateFocus: function (target, eventObj) {
             var hadFocus = this.base.getFocusedElement(),
                 toFocus;
@@ -427,7 +432,8 @@
             if (!toFocus) {
                 this.base.elements.some(function (element) {
                     // If the target is part of an editor element, this is the element getting focus
-                    if (!toFocus && (MediumEditor.util.isDescendant(element, target, true))) {
+                    if (!toFocus && (MediumEditor.util.isDescendant(element, target, true) &&
+                        (eventObj.type !== 'blur' || element !== target))) {
                         toFocus = element;
                     }
 
@@ -535,7 +541,6 @@
 
         handleBlur: function (event) {
             this.triggerCustomEvent('editableBlur', event, event.currentTarget);
-            this.updateFocus(event.target, event);
         },
 
         handleKeypress: function (event) {
