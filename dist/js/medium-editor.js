@@ -2970,7 +2970,7 @@ MediumEditor.extensions = {};
             if (toFocus !== hadFocus) {
                 // If element has focus, and focus is going outside of editor
                 // Don't blur focused element if clicking on editor, toolbar, or anchorpreview
-                if (hadFocus && externalEvent) {
+                if (hadFocus && (externalEvent || eventObj.type === 'blur' && hadFocus === target)) {
                     // Trigger blur on the editable that has lost focus
                     hadFocus.removeAttribute('data-medium-focused');
                     this.triggerCustomEvent('blur', eventObj, hadFocus);
